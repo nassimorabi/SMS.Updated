@@ -27,8 +27,18 @@ namespace SMS.App.Presenters
             _programView.ReadEvent += ReadEvent;
             _programView.UpdateEvent += UpdateEvent;
             _programView.DeleteEvent += DeleteEvent;
+            _programView.GetInfoEvent += GetInfoEvent;
             LoadProgramList();
             _programView.GetProgramList(_bindingSource);
+        }
+
+        private void GetInfoEvent(object? sender, EventArgs e)
+        {
+            var entity = (Programs)_bindingSource.Current as Programs;
+
+            _programView.ProgramId = entity.ProgramId;
+            _programView.ProgramName = entity.ProgramName;
+            _programView.Description = entity.Description;
         }
 
         private void LoadProgramList(string? search = null)
@@ -52,7 +62,11 @@ namespace SMS.App.Presenters
 
         private void UpdateEvent(object? sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            //var entity = (Programs)_bindingSource.Current as Programs;
+
+            //_programView.ProgramId = entity.ProgramId;
+            //_programView.ProgramName = entity.ProgramName;
+            //_programView.Description = entity.Description;
         }
 
         private void ReadEvent(object? sender, EventArgs e)
