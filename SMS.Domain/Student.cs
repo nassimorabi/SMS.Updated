@@ -10,7 +10,7 @@ namespace SMS.Domain
         public string StudentName { get; set; }
         public string? Email { get; set; }
 
-        [ForeignKey("ProgramId")]
+        [ForeignKey(nameof(ProgramId))]
         public int ProgramId { get; set; }
         public virtual Programs Programs { get; set; }
     }
