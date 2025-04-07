@@ -39,6 +39,8 @@
             buttonDelete = new Button();
             buttonUpdate = new Button();
             dataGridViewProgramList = new DataGridView();
+            label4 = new Label();
+            textBoxSearch = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dataGridViewProgramList).BeginInit();
             SuspendLayout();
             // 
@@ -129,17 +131,35 @@
             // dataGridViewProgramList
             // 
             dataGridViewProgramList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewProgramList.Location = new Point(356, 28);
+            dataGridViewProgramList.Location = new Point(356, 124);
             dataGridViewProgramList.Name = "dataGridViewProgramList";
             dataGridViewProgramList.RowHeadersWidth = 51;
-            dataGridViewProgramList.Size = new Size(532, 339);
+            dataGridViewProgramList.Size = new Size(532, 243);
             dataGridViewProgramList.TabIndex = 10;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(614, 48);
+            label4.Name = "label4";
+            label4.Size = new Size(45, 20);
+            label4.TabIndex = 12;
+            label4.Text = "Filter:";
+            // 
+            // textBoxSearch
+            // 
+            textBoxSearch.Location = new Point(614, 71);
+            textBoxSearch.Name = "textBoxSearch";
+            textBoxSearch.Size = new Size(274, 27);
+            textBoxSearch.TabIndex = 11;
             // 
             // ProgramView
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(931, 395);
+            Controls.Add(label4);
+            Controls.Add(textBoxSearch);
             Controls.Add(dataGridViewProgramList);
             Controls.Add(buttonDelete);
             Controls.Add(buttonUpdate);
@@ -172,5 +192,7 @@
         private Button buttonDelete;
         private Button buttonUpdate;
         private DataGridView dataGridViewProgramList;
+        private Label label4;
+        private TextBox textBoxSearch;
     }
 }
