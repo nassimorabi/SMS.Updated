@@ -1,12 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using SMS.App.Views;
 using SMS.App.Views.IViews;
 using SMS.Domain;
 using SMS.Infastructure.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SMS.App.Presenters
 {
@@ -57,16 +52,48 @@ namespace SMS.App.Presenters
 
         private void DeleteEvent(object? sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            var entity = (Programs)_bindingSource.Current;
+            _dbContext.Programs.Remove(entity);
+            _dbContext.SaveChanges();
+
+            _programView.SetMessage("Program Deleted Successfully");
+            LoadProgramList();
         }
 
         private void UpdateEvent(object? sender, EventArgs e)
         {
-            //var entity = (Programs)_bindingSource.Current as Programs;
 
-            //_programView.ProgramId = entity.ProgramId;
-            //_programView.ProgramName = entity.ProgramName;
-            //_programView.Description = entity.Description;
+            try
+            {
+                var editProgram = _dbContext.Programs.Find(_programView.ProgramId);
+
+                if (editProgram == null)
+                {
+                    _programView.SetMessage("Program Update Unsuccessful");
+                    return;
+                }
+
+                using (var createProgram = new CreateProgramView(editProgram))
+                {
+                    if (createProgram.ShowDialog() == DialogResult.OK)
+                    {
+                        createProgram.Text = "Edit Program";
+                        LoadProgramList();
+                    }
+
+
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                _programView.SetMessage($"Error: {ex.Message}");
+            }
+            finally
+            {
+                LoadProgramList();
+            }
         }
 
         private void ReadEvent(object? sender, EventArgs e)
@@ -74,19 +101,15 @@ namespace SMS.App.Presenters
             LoadProgramList(_programView.SearchValue);
         }
 
-        private async void CreateEvent(object? sender, EventArgs e)
+        private void CreateEvent(object? sender, EventArgs e)
         {
-            var program = new Programs
+            using (var createProgram = new CreateProgramView())
             {
-                ProgramName = _programView.ProgramName,
-                Description = _programView.Description
-            };
-            await _dbContext.Programs.AddAsync(program);
-            await _dbContext.SaveChangesAsync();
-
-            _programView.SetMessage("Program Created Successfully");
-
-            LoadProgramList();
+                if (createProgram.ShowDialog() == DialogResult.OK)
+                {
+                    LoadProgramList();
+                }
+            }
         }
     }
 }
